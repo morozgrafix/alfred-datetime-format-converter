@@ -19,7 +19,7 @@ def parse_query_value(query_str):
     """ Return value for the query string """
     try:
         query_str = str(query_str).strip('"\' ')
-        if query_str == 'now':
+        if query_str == "" or query_str == 'now':
             d = utcnow()
         else:
             # Parse datetime string or timestamp
