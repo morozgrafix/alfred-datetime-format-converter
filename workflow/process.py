@@ -72,15 +72,15 @@ def alfred_items_for_value(value):
     # Various formats
     formats = [
         # 1937-01-01 12:00:27
-        ("%Y-%m-%d %H:%M:%S", ''),
+        ("%Y-%m-%d %H:%M:%S", 'UTC Timestamp'),
         # 19 May 2002 15:21:36
-        ("%d %b %Y %H:%M:%S", ''),
+        ("%d %b %Y %H:%M:%S", 'UTC Timestamp'),
         # Sun, 19 May 2002 15:21:36
-        ("%a, %d %b %Y %H:%M:%S", ''),
+        ("%a, %d %b %Y %H:%M:%S", 'UTC Timestamp'),
         # 1937-01-01T12:00:27
-        ("%Y-%m-%dT%H:%M:%S", ''),
+        ("%Y-%m-%dT%H:%M:%S", 'UTC Timestamp'),
         # 1996-12-19T16:39:57-0800
-        ("%Y-%m-%dT%H:%M:%S%z", ''),
+        ("%Y-%m-%dT%H:%M:%S%z", 'UTC Timestamp'),
     ]
     for format, description in formats:
         item_value = value.datetime.strftime(format)
