@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.michaelwaterfall.datetime-format-converter</string>
+	<string>com.morozgrafix.datetime-format-converter</string>
+	<key>category</key>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>E39428C3-EE89-4D16-836B-1D31A4974660</key>
@@ -15,11 +17,13 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Michael Waterfall</string>
+	<string>Sergey Morozov</string>
 	<key>description</key>
 	<string>Convert timestamps and datetime strings into various formats</string>
 	<key>disabled</key>
@@ -35,17 +39,29 @@
 				<false/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
 			<string>B992DF40-31A6-43F3-BA6B-6A6AB9F02812</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -60,8 +76,14 @@
 				<integer>0</integer>
 				<key>queuemode</key>
 				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
 				<key>script</key>
 				<string>python process.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>subtext</key>
 				<string>Examples: 1364302555, 2013-01-15 19:41:06, now</string>
 				<key>title</key>
@@ -76,11 +98,13 @@
 			<key>uid</key>
 			<string>E39428C3-EE89-4D16-836B-1D31A4974660</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>3</integer>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>v0.2
+	<string>v0.2.1
+
+This is my modification of Date Time Converter by mwaterfall (https://github.com/mwaterfall/alfred-datetime-format-converter) and of fork by charlax (https://github.com/charlax/alfred-datetime-format-converter)
 
 This workflow uses these awesome Python projects:
 
@@ -93,16 +117,24 @@ https://github.com/nikipore/alfred-python</string>
 	<dict>
 		<key>B992DF40-31A6-43F3-BA6B-6A6AB9F02812</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>80</real>
 		</dict>
 		<key>E39428C3-EE89-4D16-836B-1D31A4974660</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>80</real>
 		</dict>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>0.2.1</string>
 	<key>webaddress</key>
-	<string>twitter.com/mwaterfall</string>
+	<string>https://www.morozgrafix.com</string>
 </dict>
 </plist>

@@ -1,6 +1,8 @@
 alfred-datetime-format-converter
 ================================
 
+v0.2.1
+
 Alfred 2 workflow for converting between timestamps and formatted datetime strings with ease.
 
 Simply type "df" followed by: nothing or "now", a UTC unix timestamp, or a formatted datetime string.
