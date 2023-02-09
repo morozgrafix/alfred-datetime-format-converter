@@ -17,18 +17,20 @@ UNESCAPE_CHARACTERS = u""" ;()"""
 
 _MAX_RESULTS_DEFAULT = 9
 
-preferences = plistlib.readPlist('info.plist')
+# preferences = plistlib.readPlist('info.plist')
+with open('info.plist', 'rb') as fp:
+    preferences = plistlib.load(fp, fmt=None)
 bundleid = preferences['bundleid']
 
 class Item(object):
     @classmethod
     def unicode(cls, value):
         try:
-            items = value.iteritems()
+            items = iter(value.items())
         except AttributeError:
-            return unicode(value)
+            return str(value)
         else:
-            return dict(map(unicode, item) for item in items)
+            return dict(map(str, item) for item in items)
 
     def __init__(self, attributes, title, subtitle, icon=None):
         self.attributes = attributes
@@ -37,7 +39,7 @@ class Item(object):
         self.icon = icon
 
     def __str__(self):
-        return tostring(self.xml(), encoding='utf-8')
+        return tostring(self.xml()).decode('utf-8')
 
     def xml(self):
         item = Element(u'item', self.unicode(self.attributes))
@@ -45,11 +47,11 @@ class Item(object):
             value = getattr(self, attribute)
             if value is None:
                 continue
-            try:
+            if len(value) == 2 and isinstance(value[1], dict):
                 (value, attributes) = value
-            except:
+            else:
                 attributes = {}
-            SubElement(item, attribute, self.unicode(attributes)).text = unicode(value)
+            SubElement(item, attribute, self.unicode(attributes)).text = self.unicode(value)
         return item
 
 def args(characters=None):
@@ -59,10 +61,13 @@ def config():
     return _create('config')
 
 def decode(s):
-    return unicodedata.normalize('NFC', s.decode('utf-8'))
+    return unicodedata.normalize('NFC', s)
+
+def env(key):
+    return os.environ['alfred_%s' % key]
 
 def uid(uid):
-    return u'-'.join(map(unicode, (bundleid, uid)))
+    return u'-'.join(map(str, (bundleid, uid)))
 
 def unescape(query, characters=None):
     for character in (UNESCAPE_CHARACTERS if (characters is None) else characters):
@@ -71,10 +76,10 @@ def unescape(query, characters=None):
 
 def work(volatile):
     path = {
-        True: '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data',
-        False: '~/Library/Application Support/Alfred 2/Workflow Data'
+        True: env('workflow_cache'),
+        False: env('workflow_data')
     }[bool(volatile)]
-    return _create(os.path.join(os.path.expanduser(path), bundleid))
+    return _create(path)
 
 def write(text):
     sys.stdout.write(text)
@@ -83,7 +88,7 @@ def xml(items, maxresults=_MAX_RESULTS_DEFAULT):
     root = Element('items')
     for item in itertools.islice(items, maxresults):
         root.append(item.xml())
-    return tostring(root, encoding='utf-8')
+    return tostring(root, encoding='unicode')
 
 def _create(path):
     if not os.path.isdir(path):
