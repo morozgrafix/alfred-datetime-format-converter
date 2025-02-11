@@ -1,8 +1,11 @@
 # alfred-datetime-format-converter
 
-v0.3.0
+v0.3.1
+
+Added milliseconds - thank you @nivlempert1 for contribution
 
 Updated to work with Python3
+
 For Python 2 use workflow v0.2.1
 
 Alfred workflow for converting between timestamps and formatted datetime strings with ease.
