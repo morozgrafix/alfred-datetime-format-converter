@@ -19,13 +19,17 @@ def parse_query_value(query_str):
     """ Return value for the query string """
     try:
         query_str = str(query_str).strip('"\' ')
-        if query_str == "" or query_str == 'now':
+        if query_str == "" or query_str.lower() == 'now':
             d = utcnow()
         else:
             # Parse datetime string or timestamp
-            try:
-                d = epoch(float(query_str))
-            except ValueError:
+            if query_str.replace('.', '', 1).isdigit():
+                val = float(query_str)
+                # If the value is very large (e.g. more than 10 digits long), consider it milliseconds
+                if val > 3e10:
+                    val = val / 1000.0
+                d = epoch(val)
+            else:
                 d = parse(str(query_str))
     except (TypeError, ValueError):
         d = None
@@ -103,3 +107,4 @@ if __name__ == "__main__":
     except IndexError:
         query_str = None
     process(query_str)
+
